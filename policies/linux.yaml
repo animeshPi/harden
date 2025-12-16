@@ -1,0 +1,121 @@
+# linux_policies.yaml
+policies:
+  - id: LIN-1.a.i
+    title: Ensure cramfs kernel module is not available
+    category: Filesystem
+    subcategory: Configure Filesystem Kernel Modules
+    severity: high
+    levels:
+      - audit
+      - enforce
+    tags: [filesystem, kernel, module, hardening]
+    check: "modprobe -n -v cramfs"
+    remediate: "sudo bash -c 'printf \"install cramfs /bin/true\nblacklist cramfs\n\" >> /etc/modprobe.d/disable-filesystems.conf && sudo rmmod cramfs 2>/dev/null || true'"
+
+  - id: LIN-1.a.ii
+    title: Ensure freevxfs kernel module is not available
+    category: Filesystem
+    subcategory: Configure Filesystem Kernel Modules
+    severity: high
+    levels:
+      - audit
+      - enforce
+    tags: [filesystem, kernel, module, hardening]
+    check: "modprobe -n -v freevxfs"
+    remediate: "sudo bash -c 'printf \"install freevxfs /bin/true\nblacklist freevxfs\n\" >> /etc/modprobe.d/disable-filesystems.conf && sudo rmmod freevxfs 2>/dev/null || true'"
+
+  - id: LIN-1.a.iii
+    title: Ensure hfs kernel module is not available
+    category: Filesystem
+    subcategory: Configure Filesystem Kernel Modules
+    severity: high
+    levels:
+      - audit
+      - enforce
+    tags: [filesystem, kernel, module, hardening]
+    check: "modprobe -n -v hfs"
+    remediate: "sudo bash -c 'printf \"install hfs /bin/true\nblacklist hfs\n\" >> /etc/modprobe.d/disable-filesystems.conf && sudo rmmod hfs 2>/dev/null || true'"
+
+  - id: LIN-1.a.iv
+    title: Ensure hfsplus kernel module is not available
+    category: Filesystem
+    subcategory: Configure Filesystem Kernel Modules
+    severity: high
+    levels:
+      - audit
+      - enforce
+    tags: [filesystem, kernel, module, hardening]
+    check: "modprobe -n -v hfsplus"
+    remediate: "sudo bash -c 'printf \"install hfsplus /bin/true\nblacklist hfsplus\n\" >> /etc/modprobe.d/disable-filesystems.conf && sudo rmmod hfsplus 2>/dev/null || true'"
+
+  - id: LIN-1.a.v
+    title: Ensure jffs2 kernel module is not available
+    category: Filesystem
+    subcategory: Configure Filesystem Kernel Modules
+    severity: high
+    levels:
+      - audit
+      - enforce
+    tags: [filesystem, kernel, module, hardening]
+    check: "modprobe -n -v jffs2"
+    remediate: "sudo bash -c 'printf \"install jffs2 /bin/true\nblacklist jffs2\n\" >> /etc/modprobe.d/disable-filesystems.conf && sudo rmmod jffs2 2>/dev/null || true'"
+
+  - id: LIN-1.a.vi
+    title: Ensure overlayfs kernel module is not available
+    category: Filesystem
+    subcategory: Configure Filesystem Kernel Modules
+    severity: high
+    levels:
+      - audit
+      - enforce
+    tags: [filesystem, kernel, module, hardening, container]
+    check: "modprobe -n -v overlay"
+    remediate: "sudo bash -c 'printf \"install overlay /bin/true\nblacklist overlay\n\" >> /etc/modprobe.d/disable-filesystems.conf && sudo rmmod overlay 2>/dev/null || true'"
+
+  - id: LIN-1.a.vii
+    title: Ensure squashfs kernel module is not available
+    category: Filesystem
+    subcategory: Configure Filesystem Kernel Modules
+    severity: high
+    levels:
+      - audit
+      - enforce
+    tags: [filesystem, kernel, module, hardening]
+    check: "modprobe -n -v squashfs"
+    remediate: "sudo bash -c 'printf \"install squashfs /bin/true\nblacklist squashfs\n\" >> /etc/modprobe.d/disable-filesystems.conf && sudo rmmod squashfs 2>/dev/null || true'"
+
+  - id: LIN-1.a.viii
+    title: Ensure udf kernel module is not available
+    category: Filesystem
+    subcategory: Configure Filesystem Kernel Modules
+    severity: medium
+    levels:
+      - audit
+      - enforce
+    tags: [filesystem, kernel, module, hardening]
+    check: "modprobe -n -v udf"
+    remediate: "sudo bash -c 'printf \"install udf /bin/true\nblacklist udf\n\" >> /etc/modprobe.d/disable-filesystems.conf && sudo rmmod udf 2>/dev/null || true'"
+
+  - id: LIN-1.a.ix
+    title: Ensure usb-storage kernel module is not available
+    category: Filesystem
+    subcategory: Configure Filesystem Kernel Modules
+    severity: high
+    levels:
+      - audit
+      - enforce
+    tags: [usb, removable, kernel, module, hardening]
+    check: "modprobe -n -v usb-storage"
+    remediate: "sudo bash -c 'printf \"install usb-storage /bin/true\nblacklist usb-storage\n\" >> /etc/modprobe.d/disable-filesystems.conf && sudo rmmod usb-storage 2>/dev/null || true'"
+
+  - id: LIN-1.a.x
+    title: Ensure unused filesystem kernel modules are not available
+    category: Filesystem
+    subcategory: Configure Filesystem Kernel Modules
+    severity: medium
+    levels:
+      - audit
+      - enforce
+    tags: [filesystem, kernel, module, audit]
+    check: "lsmod | awk '{print $1}' | sort | uniq"
+    remediate: "sudo bash -c 'echo \"# Add modules to be disabled here\" >> /etc/modprobe.d/disable-filesystems.conf; echo \"# Example: install <module> /bin/true\" >> /etc/modprobe.d/disable-filesystems.conf'"
